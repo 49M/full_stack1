@@ -1,0 +1,229 @@
+File System (fs):
+    import * as fs from "fs" OR const fs = require("fs");
+    - fs.copyFile() copies a source file to a destination location
+    - fs.copyFileSync() synchoronous method which block code until the operation is complete
+    - fs.readFile() reads a file
+    - fs.writeFile() write a string into a file can use JSON.stringify() to write JS object
+    - fs.unlink() deletes a file when passing in the file path
+    - fs.mkdir() creates directories
+    - fs.rmdir() deletes directories
+    - fs.stat() returns an object with statistical information regarding the file or directory
+    - fs.readdir() reads in the contents of a directory given its path and returns an array of filenames
+
+HTTP and HTTPS (http and https):
+    http
+    - http.createServer() returns an http.Server object
+    - listen() boolean check for if the instancce is listening
+    - close() stop it from accepting requests
+    - setTimeout() set how long a socket to a client lives for
+    - maxHeadersCount() limits how many HTTP headers your server will accept, defaults to 2000
+    https
+    - builds on top of the http module and provides the ability to create servers that use secure TLS connections
+      must provide extra information about certificates and keys when constructing the server
+
+    const server = require("https").createServer(
+        {
+            key: fs.readFileSync("my_key.pem"),
+            cert: fs.readFileSync("my_cert.pem")
+        },
+        (inRequest, inResponse) => {
+            inResponse.writeHead(200);
+            inResponse.end("I am protected by TLS!");
+        }
+    ).listen(443);
+
+    let finalResponse = "";
+    const request = require("http").request(
+    {
+    hostname : "www.some_remote_system.com",
+    port : 80,
+    path : "/someAPI",
+    method : "POST"
+    },
+    (inResponse) => {
+        console.log(`STATUS: ${inResponse.statusCode}`);
+        inResponse.setEncoding("utf8");
+        inResponse.on("data", (inDataChunk) => {
+        finalResponse += inDataChunk.
+            });
+        inResponse.on("end", () => {
+        console.log(finalResponse);
+            });
+        }
+    );
+    request.write("Some data to send to the remote system");
+    request.end();
+
+OS (os):
+    - os.EOL Provides you the end-of-line character the operating system uses
+    - os.cpus() Returns an object aray where each object gives you information about the CPU(s) in the system
+    - os.freemem() returns an integer value of the number of free system memory available in bytes
+    - os.homedir() returns the path to the current home directory of the user running the process
+    - os.hostname() returns the machines host name
+    - os.tempdir() returns a path to the dafault system temporary directory
+    - os.constants property contains several keys such as: SIGHUP, SIGFPE, SIGCHILD, and SIGSTOP
+
+Path (path):
+    methods:
+    - path.basename()
+    - path.dirname()
+    - path.extname()
+    - path.parse()
+    - path.join()
+    - path.normalize()
+
+Process (process):
+    - process.abort()
+    - process.exit()
+    - process.version
+    - process.uptime()
+    - process.mainModule
+    - process.env
+
+Query Strings (querystring)
+    // "http://mysite.com/?account=36764&add=125";
+    let parsedURL = url.parse(request.url);
+        returns:
+        {
+            protocol: 'http:',
+            slashes: true,
+            auth: null,
+            host: 'mysite.com',
+            port: null,
+            hostname: 'mysite.com',
+            hash: null,
+            search: '?account=36764&add=125',
+            query: 'account=36764&add=125',
+            pathname: '/',
+            path: '/?account=36764&add=125',
+            href: 'http://mysite.com/?account=36764&add=125'
+        }
+    let parsedParams = querystring.parse(parsedURL);
+        returns:
+            { account : "36764", add : "125" }
+    const qs = querrystring.stringify(parsedParams);
+        returns:
+            "account=36764&add=125"
+
+URL (url):
+    - url.URL returns the fragment portion of the url
+    - url.pathToFileURL() and url.fileURLTo Path()
+
+Utilities (util):
+    - util.format()
+    - util.promisify()
+    - util.types.isArrayBuffer() 
+    - util.types.isBigInt64Array()
+    - util.types.isBooleanObject()
+    - util.types.isDate()
+    - util.types.isMap()
+    - util.types.isPromise()
+    - util.types.isUint32Array()
+    - util.inspect()
+
+- Assertion Testing – The Assert module provides a simple set of
+assertion tests that can be used to test invariants.
+
+- Async Hooks – The async_hooks module provides an API to register
+callbacks tracking the lifetime of asynchronous resources created
+inside a Node application.
+
+- Buffer – This is, in fact, a class, not a module, and as such, it's in
+global scope. Either way, it's a class created before JavaScript offered
+the TypedArray that provides the ability to work with streams of
+binary data.
+
+- C++ Addons – Node add-ons are dynamically linked shared objects,
+written in C++, that can be loaded into Node using the require()
+function and used just as if they were an ordinary Node module. They
+are mainly used to provide an interface between JavaScript running
+in Node and C/C++ libraries. This module allows you to work with
+them. The N-API module goes along with this and enables you to
+build them.
+
+- Child Processes – The child_process module provides the ability to
+spawn child processes outside of Node.
+
+- Cluster – A single instance of Node runs in a single thread. To take
+advantage of multicore systems, the user will sometimes want to
+launch a group of Node processes to handle the load. The cluster
+module allows easy creation of child processes that all share
+server ports.
+
+- Console – The console module provides a simple debugging console
+that is like the JavaScript console mechanism provided by web
+browsers.
+
+- Crypto – The crypto module provides cryptographic functionality
+that includes a set of wrappers for OpenSSL's hash, HMAC, cipher,
+decipher, sign, and verify functions.
+
+- DNS – The dns module contains functions belonging to two different
+categories: methods that use the underlying operating system
+facilities to perform name resolution and methods that connect to an
+actual DNS server to achieve name resolution.
+
+- Events – Much of the Node.js core API is built around an idiomatic
+asynchronous event-driven architecture in which certain kinds of
+objects (called “emitters”) emit named events that cause Function
+objects (“listeners”) to be called. The events module provides the
+ability for your own code to hook into and use these same capabilities
+at the application level.
+
+- HTTP/2 – The http2 module provides an implementation of the
+HTTP/2 protocol. It’s just like http and https, but newer and better!
+
+- Inspector – The inspector module provides an API for interacting
+with the V8 inspector.
+
+- Net – The net module provides an asynchronous network API for
+creating stream-based TCP or IPC servers and clients.
+
+- Performance Hooks – The Performance Timing API, by way of
+the perf_hooks module, provides an implementation of the W3C
+Performance Timeline specification. The purpose of the API is to
+support the collection of high-resolution performance metrics.
+This is the same Performance API as implemented in modern web
+browsers.
+
+- Readline – The readline module provides an interface for reading
+data from a readable stream (such as process.stdin) one line
+at a time.
+
+- REPL – The repl module provides a Read-Eval-Print-Loop (REPL)
+implementation that is available both as a stand-alone program and
+includible in other applications.
+
+- Stream – A stream is an abstract interface for working with streaming
+data in Node assertion testing.
+
+- String Decoder – The string_decoder module provides an API for
+decoding Buffer objects into strings in a manner that preserves
+encoded multibyte UTF-8 and UTF-16 characters.
+
+- Timers – The timer module exposes a global API for scheduling
+functions to be called at some later time.
+
+- TLS/SSL – The tls module provides an implementation of the
+Transport Layer Security (TLS) and Secure Socket Layer (SSL)
+protocols that are built on top of OpenSSL.
+
+- TTY – The tty module provides the tty.ReadStream and tty.
+WriteStream classes and deals with reading and writing output and
+input to the terminal.
+
+- UDP/Datagram – The dgram module provides an implementation of
+UDP/Datagram sockets.
+
+- V8 – The v8 module exposes APIs that are specific to the version of V8
+built into the Node binary.
+
+- VM – The vm module provides APIs for compiling and running code
+within V8 virtual machine contexts.
+
+- Worker Threads – The worker module provides a way to create
+multiple environments running on independent threads and to
+create message channels between them.
+
+- Zlib – The zlib module provides compression functionality
+implemented using Gzip and Deflate/Inflate, as well as Broutil.
