@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn React</title>
+    <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script>
+        function start() {
+            class Bookmark extends React.Component {
+                render() {
+                    return (
+                        React.createElement("li", { },
+                            React.createElement("h2", { }, this.props.title), 
+                            React.createElement("a", { href : this.props.href }, this.props.description)
+                        )
+                    );
+                }
+            }
+            const topMostComponent = 
+              React.createElement("div", { },
+                React.createElement("h1", { }, "Bookmarks"),
+                React.createElement("ul", { },
+                    React.createElement(
+                        Bookmark, { title: "Michal Buczek", 
+                        href: "https://www.linkedin.com/in/michal-buczek-99b64b278/", 
+                        description: "LinkedIn" }
+                    ),
+                    React.createElement(
+                        Bookmark, { title: "Ethereum",
+                        href: "https://ethereum.org/en/",
+                        description: "Ethereum Official Website" }
+                    )
+                )
+              );
+            const root = ReactDOM.createRoot(document.getElementById("mainContainer"));
+            root.render(topMostComponent);
+        }
+    </script>
+</head>
+<body onLoad="start();">
+  <div id="mainContainer"></div>
+</body>
+</html>
